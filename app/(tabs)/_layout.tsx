@@ -1,59 +1,84 @@
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
-
+import { Tabs } from 'expo-router';
+import { FontAwesome } from '@expo/vector-icons';
 import Colors from '@/constants/Colors';
-import { useColorScheme } from '@/components/useColorScheme';
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
 
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
+const _layout = () => {
+    return (
+        <Tabs
+            screenOptions={{
+                tabBarActiveTintColor: Colors.primary,
+                tabBarStyle: {
+                    backgroundColor: 'transparent',
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    elevation: 0,
+                    borderTopWidth: 0,
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+                },
+                headerShown: false,
+            }}
+        >
+            <Tabs.Screen
+                name="home"
+                options={{
+                    title: 'Home',
+                    tabBarIcon: ({ size, color }) => (
+                        <FontAwesome name="registered" size={size} color={color} />
+                    ),
+                }}
+            />
+            <Tabs.Screen
+                name="profile"
+                options={{
+                    title: 'Profile',
+                    tabBarIcon: ({ size, color }) => (
+                        <FontAwesome name="user" size={size} color={color} />
+                    ),
+                    headerShown: false
+                }}
+            />
+            <Tabs.Screen
+                name="add"
+                options={{
+                    title: 'add',
+                    tabBarIcon: ({ size, color }) => (
+                        <FontAwesome name="exchange" size={size} color={color} />
+                    ),
+                    headerShown: false
+                }}
+            />
 
-  return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="two"
-        options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
-      />
-    </Tabs>
-  );
-}
+            <Tabs.Screen
+                name="time"
+
+                options={{
+                    headerShown: false,
+                    title: 'time',
+                    tabBarIcon: ({ size, color }) => (
+                        <FontAwesome name="medkit" size={size} color={color} />
+                    ),
+
+
+                }}
+            />
+            <Tabs.Screen
+                name="mainprofile"
+                options={{
+                    title: 'Profile',
+                    tabBarIcon: ({ size, color }) => (
+                        <FontAwesome name="user" size={size} color={color} />
+                    ),
+                    headerShown: false
+                }}
+            />
+
+        </Tabs>
+    );
+};
+
+export default _layout;
+
+const styles = StyleSheet.create({});
